@@ -1,0 +1,10 @@
+# Generated files
+build/
+flowdb/
+
+# System files
+.idea
+
+# Secrets
+flow.mainnet.json
+flow.testnet.json

@@ -1,0 +1,95 @@
+{
+  "emulators": {
+    "default": {
+      "port": 3569,
+      "serviceAccount": "emulator-account"
+    }
+  },
+  "contracts": {
+    "FungibleToken": {
+      "source": "./contracts/FungibleToken.cdc",
+      "aliases": {
+        "testnet": "0x9a0766d93b6608b7",
+        "mainnet": "0xf233dcee88fe0abe"
+      }
+    },
+    "MetadataViews": {
+      "source": "./contracts/MetadataViews.cdc",
+      "aliases": {
+        "testnet": "0x631e88ae7f1d7c20",
+        "mainnet": "0x1d7e57aa55817448"
+      }
+    },
+    "NonFungibleToken": {
+      "source": "./contracts/NonFungibleToken.cdc",
+      "aliases": {
+        "testnet": "0x631e88ae7f1d7c20",
+        "mainnet": "0x1d7e57aa55817448"
+      }
+    },
+    "BlindBoxRedeemCode": {
+      "source": "./contracts/BlindBoxRedeemCode.cdc",
+      "aliases": {
+        "mainnet": "0x758252ab932a3416"
+      }
+    },
+    "YahooPartnersCollectible": {
+      "source": "./contracts/YahooPartnersCollectible.cdc",
+      "aliases": {
+        "mainnet": "0x758252ab932a3416"
+      }
+    }
+  },
+  "networks": {
+    "emulator": {
+      "host": "127.0.0.1:3569",
+      "chain": "flow-emulator"
+    },
+    "testnet": {
+      "host": "access.devnet.nodes.onflow.org:9000",
+      "chain": "flow-testnet"
+    },
+    "mainnet": {
+      "host": "access.mainnet.nodes.onflow.org:9000",
+      "chain": "flow-mainnet"
+    }
+  },
+  "accounts": {
+    "emulator-account": {
+      "address": "f8d6e0586b0a20c7",
+      "keys": "eb4347b08ebd2f74d38bec1026b07430fe04510c95afe8534735677a3410dd87",
+      "chain": "flow-emulator"
+    },
+    "yahoo-admin-testnet": {
+      "fromFile": "./flow.testnet.json"
+    },
+    "yahoo-admin-backend-testnet": {
+      "fromFile": "./flow.testnet.json"
+    },
+    "yahoo-user-testnet": {
+      "fromFile": "./flow.testnet.json"
+    },
+    "yahoo-admin-mainnet": {
+      "fromFile": "./flow.mainnet.json"
+    },
+    "yahoo-admin-backend-mainnet": {
+      "fromFile": "./flow.mainnet.json"
+    },
+    "user-mainnet": {
+      "fromFile": "./flow.mainnet.json"
+    }
+  },
+  "deployments": {
+    "testnet": {
+      "yahoo-admin-testnet": [
+        "BlindBoxRedeemCode",
+        "YahooPartnersCollectible"
+      ]
+    },
+    "mainnet": {
+      "yahoo-admin-mainnet": [
+        "BlindBoxRedeemCode"
+      ]
+    }
+  }
+}
