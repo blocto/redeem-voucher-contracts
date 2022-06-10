@@ -9,7 +9,7 @@ flow transactions send ./transactions/setupCollection.cdc \
 
 ### Transfer Collectible
 ```
-flow transactions send ./transactions/transferBlindBoxRedeemCode.cdc 0 0x759a73541fce0ae9 \
+flow transactions send ./transactions/transferBlindBoxRedeemVoucher.cdc 0 0x759a73541fce0ae9 \
   --network mainnet \
   --signer user-mainnet \
   --gas-limit 1000
@@ -26,7 +26,7 @@ flow transactions send ./transactions/registerMetadata.cdc \
 
 ### Mint NFT
 ```
-flow transactions send ./transactions/mintBlindBoxRedeemCode.cdc 0x66ca989c2cd296fb 0 \
+flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0x66ca989c2cd296fb 0 \
   --network testnet \
   --signer yahoo-admin-testnet \
   --gas-limit 1000
@@ -34,7 +34,7 @@ flow transactions send ./transactions/mintBlindBoxRedeemCode.cdc 0x66ca989c2cd29
 
 ### Mint NFT in Batch
 ```
-flow transactions send ./transactions/mintBlindBoxRedeemCodeBatch.cdc 0x66ca989c2cd296fb 0 5 \
+flow transactions send ./transactions/mintBlindBoxRedeemVoucherBatch.cdc 0x66ca989c2cd296fb 0 5 \
   --network testnet \
   --signer yahoo-admin-testnet \
   --gas-limit 9999

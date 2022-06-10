@@ -5,7 +5,7 @@ flow scripts execute ./scripts/checkCollection.cdc 0x66ca989c2cd296fb \
   --network testnet
 ```
 
-### Get Metadata for a BlindBoxRedeemCode
+### Get Metadata for a BlindBoxRedeemVoucher
 ```
 flow scripts execute ./scripts/getMetadata.cdc 0x66ca989c2cd296fb 0 \
   --network testnet

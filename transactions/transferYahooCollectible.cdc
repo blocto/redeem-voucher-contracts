@@ -1,5 +1,5 @@
 import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import BlindBoxRedeemCode from "../contracts/BlindBoxRedeemCode.cdc"
+import BlindBoxRedeemVoucher from "../contracts/BlindBoxRedeemVoucher.cdc"
 
 transaction(id: UInt64, to: Address) {
 	let sentNFT: @NonFungibleToken.NFT
@@ -7,7 +7,7 @@ transaction(id: UInt64, to: Address) {
   	let address: Address
 
 	prepare(signer: AuthAccount) {
-		let collectionRef = signer.borrow<&NonFungibleToken.Collection>(from: BlindBoxRedeemCode.CollectionStoragePath)
+		let collectionRef = signer.borrow<&NonFungibleToken.Collection>(from: BlindBoxRedeemVoucher.CollectionStoragePath)
 		?? panic("Could not borrow reference collection")
 
 		self.sentNFT <- collectionRef.withdraw(withdrawID: id)
@@ -17,7 +17,7 @@ transaction(id: UInt64, to: Address) {
 	execute {
 		let recipient = getAccount(to)
 
-		let receiverRef = recipient.getCapability(BlindBoxRedeemCode.CollectionPublicPath).borrow<&{NonFungibleToken.CollectionPublic}>()
+		let receiverRef = recipient.getCapability(BlindBoxRedeemVoucher.CollectionPublicPath).borrow<&{NonFungibleToken.CollectionPublic}>()
 		?? panic("Could not borrow receiver reference to the recipient''s Vault")
 
 		receiverRef.deposit(token: <-self.sentNFT)

@@ -1,18 +1,18 @@
 import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
-import BlindBoxRedeemCode from "../contracts/BlindBoxRedeemCode.cdc"
+import BlindBoxRedeemVoucher from "../contracts/BlindBoxRedeemVoucher.cdc"
 
 transaction {
 
     prepare(signer: AuthAccount) {
-        if signer.borrow<&BlindBoxRedeemCode.Collection>(from: BlindBoxRedeemCode.CollectionStoragePath) == nil {
+        if signer.borrow<&BlindBoxRedeemVoucher.Collection>(from: BlindBoxRedeemVoucher.CollectionStoragePath) == nil {
 
-            let collection <- BlindBoxRedeemCode.createEmptyCollection() as! @BlindBoxRedeemCode.Collection
+            let collection <- BlindBoxRedeemVoucher.createEmptyCollection() as! @BlindBoxRedeemVoucher.Collection
 
-            signer.save(<-collection, to: BlindBoxRedeemCode.CollectionStoragePath)
+            signer.save(<-collection, to: BlindBoxRedeemVoucher.CollectionStoragePath)
 
-            signer.link<&BlindBoxRedeemCode.Collection{NonFungibleToken.CollectionPublic, BlindBoxRedeemCode.CollectionPublic}>(
-                BlindBoxRedeemCode.CollectionPublicPath,
-                target: BlindBoxRedeemCode.CollectionStoragePath)
+            signer.link<&BlindBoxRedeemVoucher.Collection{NonFungibleToken.CollectionPublic, BlindBoxRedeemVoucher.CollectionPublic}>(
+                BlindBoxRedeemVoucher.CollectionPublicPath,
+                target: BlindBoxRedeemVoucher.CollectionStoragePath)
         }
     }
 }

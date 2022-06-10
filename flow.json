@@ -27,8 +27,8 @@
         "mainnet": "0x1d7e57aa55817448"
       }
     },
-    "BlindBoxRedeemCode": {
-      "source": "./contracts/BlindBoxRedeemCode.cdc",
+    "BlindBoxRedeemVoucher": {
+      "source": "./contracts/BlindBoxRedeemVoucher.cdc",
       "aliases": {
         "mainnet": "0x758252ab932a3416"
       }
@@ -82,13 +82,13 @@
   "deployments": {
     "testnet": {
       "yahoo-admin-testnet": [
-        "BlindBoxRedeemCode",
+        "BlindBoxRedeemVoucher",
         "YahooPartnersCollectible"
       ]
     },
     "mainnet": {
       "yahoo-admin-mainnet": [
-        "BlindBoxRedeemCode"
+        "BlindBoxRedeemVoucher"
       ]
     }
   }

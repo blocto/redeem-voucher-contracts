@@ -1,17 +1,17 @@
-import BlindBoxRedeemCode from "../contracts/BlindBoxRedeemCode.cdc"
+import BlindBoxRedeemVoucher from "../contracts/BlindBoxRedeemVoucher.cdc"
 
 transaction {
   prepare(admin: AuthAccount, newAdmin: AuthAccount) {
     // Check admin resource
-    let adminRef = admin.borrow<&BlindBoxRedeemCode.Admin>(from: BlindBoxRedeemCode.AdminStoragePath)
-      ?? panic("failed to borrow &BlindBoxRedeemCode.Admin")
+    let adminRef = admin.borrow<&BlindBoxRedeemVoucher.Admin>(from: BlindBoxRedeemVoucher.AdminStoragePath)
+      ?? panic("failed to borrow &BlindBoxRedeemVoucher.Admin")
 
-    admin.unlink(/private/BlindBoxRedeemCodeAdmin)
-    let adminCapability: Capability<&BlindBoxRedeemCode.Admin> = admin.link<&BlindBoxRedeemCode.Admin>(
-        /private/BlindBoxRedeemCodeAdmin,
-        target: BlindBoxRedeemCode.AdminStoragePath
+    admin.unlink(/private/BlindBoxRedeemVoucherAdmin)
+    let adminCapability: Capability<&BlindBoxRedeemVoucher.Admin> = admin.link<&BlindBoxRedeemVoucher.Admin>(
+        /private/BlindBoxRedeemVoucherAdmin,
+        target: BlindBoxRedeemVoucher.AdminStoragePath
     ) ?? panic("failed to create capability")
 
-    newAdmin.save<Capability<&BlindBoxRedeemCode.Admin>>(adminCapability, to: BlindBoxRedeemCode.AdminStoragePath)
+    newAdmin.save<Capability<&BlindBoxRedeemVoucher.Admin>>(adminCapability, to: BlindBoxRedeemVoucher.AdminStoragePath)
   }
 }

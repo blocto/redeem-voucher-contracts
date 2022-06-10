@@ -1,7 +1,7 @@
 import NonFungibleToken from "./NonFungibleToken.cdc"
 import MetadataViews from "./MetadataViews.cdc"
 
-pub contract BlindBoxRedeemCode: NonFungibleToken {
+pub contract BlindBoxRedeemVoucher: NonFungibleToken {
 
     // Events
     //
@@ -17,7 +17,7 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
     pub let AdminStoragePath: StoragePath
 
     // totalSupply
-    // The total number of BlindBoxRedeemCode that have been minted
+    // The total number of BlindBoxRedeemVoucher that have been minted
     //
     pub var totalSupply: UInt64
 
@@ -80,18 +80,18 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
             self.id = initID
             self.itemID = itemID
 
-            let metadata = BlindBoxRedeemCode.itemMetadata[itemID] ?? panic("itemID not valid")
+            let metadata = BlindBoxRedeemVoucher.itemMetadata[itemID] ?? panic("itemID not valid")
             self.editionNumber = metadata.itemCount + (1 as UInt64)
 
             // Increment the edition count by 1
             metadata.itemCount = self.editionNumber
 
-            BlindBoxRedeemCode.itemMetadata[itemID] = metadata
+            BlindBoxRedeemVoucher.itemMetadata[itemID] = metadata
         }
 
         // Expose metadata
         pub fun getMetadata(): Metadata? {
-            return BlindBoxRedeemCode.itemMetadata[self.itemID]
+            return BlindBoxRedeemVoucher.itemMetadata[self.itemID]
         }
 
         pub fun getViews(): [Type] {
@@ -130,18 +130,18 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
         pub fun deposit(token: @NonFungibleToken.NFT)
         pub fun getIDs(): [UInt64]
         pub fun borrowNFT(id: UInt64): &NonFungibleToken.NFT
-        pub fun borrowBlindBoxRedeemCode(id: UInt64): &BlindBoxRedeemCode.NFT? {
+        pub fun borrowBlindBoxRedeemVoucher(id: UInt64): &BlindBoxRedeemVoucher.NFT? {
             // If the result isn't nil, the id of the returned reference
             // should be the same as the argument to the function
             post {
                 (result == nil) || (result?.id == id):
-                    "Cannot borrow BlindBoxRedeemCode reference: The ID of the returned reference is incorrect"
+                    "Cannot borrow BlindBoxRedeemVoucher reference: The ID of the returned reference is incorrect"
             }
         }
     }
 
     // Collection
-    // A collection of BlindBoxRedeemCode NFTs owned by an account
+    // A collection of BlindBoxRedeemVoucher NFTs owned by an account
     //
     pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CollectionPublic {
         // dictionary of NFT conforming tokens
@@ -165,7 +165,7 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
         // and adds the ID to the id array
         //
         pub fun deposit(token: @NonFungibleToken.NFT) {
-            let token <- token as! @BlindBoxRedeemCode.NFT
+            let token <- token as! @BlindBoxRedeemVoucher.NFT
 
             let id: UInt64 = token.id
 
@@ -192,15 +192,15 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
             return &self.ownedNFTs[id] as &NonFungibleToken.NFT
         }
 
-        // borrowBlindBoxRedeemCode
-        // Gets a reference to an NFT in the collection as a BlindBoxRedeemCode,
+        // borrowBlindBoxRedeemVoucher
+        // Gets a reference to an NFT in the collection as a BlindBoxRedeemVoucher,
         // exposing all of its fields.
-        // This is safe as there are no functions that can be called on the BlindBoxRedeemCode.
+        // This is safe as there are no functions that can be called on the BlindBoxRedeemVoucher.
         //
-        pub fun borrowBlindBoxRedeemCode(id: UInt64): &BlindBoxRedeemCode.NFT? {
+        pub fun borrowBlindBoxRedeemVoucher(id: UInt64): &BlindBoxRedeemVoucher.NFT? {
             if self.ownedNFTs[id] != nil {
                 let ref = &self.ownedNFTs[id] as auth &NonFungibleToken.NFT
-                return ref as! &BlindBoxRedeemCode.NFT
+                return ref as! &BlindBoxRedeemVoucher.NFT
             } else {
                 return nil
             }
@@ -237,20 +237,20 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
         //
         pub fun mintNFT(recipient: &{NonFungibleToken.CollectionPublic}, itemID: UInt64, codeHash: String?) {
             pre {
-                codeHash == nil || !BlindBoxRedeemCode.checkCodeHashUsed(codeHash: codeHash!): "duplicated codeHash"
+                codeHash == nil || !BlindBoxRedeemVoucher.checkCodeHashUsed(codeHash: codeHash!): "duplicated codeHash"
             }
             
-            emit Minted(id: BlindBoxRedeemCode.totalSupply)
+            emit Minted(id: BlindBoxRedeemVoucher.totalSupply)
 
             // deposit it in the recipient's account using their reference
-            recipient.deposit(token: <-create BlindBoxRedeemCode.NFT(initID: BlindBoxRedeemCode.totalSupply, itemID: itemID))
-            BlindBoxRedeemCode.totalSupply = BlindBoxRedeemCode.totalSupply + (1 as UInt64)
+            recipient.deposit(token: <-create BlindBoxRedeemVoucher.NFT(initID: BlindBoxRedeemVoucher.totalSupply, itemID: itemID))
+            BlindBoxRedeemVoucher.totalSupply = BlindBoxRedeemVoucher.totalSupply + (1 as UInt64)
 
             // if minter passed in codeHash, register it to dictionary
             if let checkedCodeHash = codeHash {
-                let redeemedCodes = BlindBoxRedeemCode.account.load<{String: Bool}>(from: /storage/redeemedCodes)!
+                let redeemedCodes = BlindBoxRedeemVoucher.account.load<{String: Bool}>(from: /storage/redeemedCodes)!
                 redeemedCodes[checkedCodeHash] = true
-                BlindBoxRedeemCode.account.save<{String: Bool}>(redeemedCodes, to: /storage/redeemedCodes)
+                BlindBoxRedeemVoucher.account.save<{String: Bool}>(redeemedCodes, to: /storage/redeemedCodes)
             }
         }
 
@@ -277,10 +277,10 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
         //
         pub fun registerMetadata(itemID: UInt64, metadata: Metadata) {
             pre {
-                BlindBoxRedeemCode.itemMetadata[itemID] == nil: "duplicated itemID"
+                BlindBoxRedeemVoucher.itemMetadata[itemID] == nil: "duplicated itemID"
             }
 
-            BlindBoxRedeemCode.itemMetadata[itemID] = metadata
+            BlindBoxRedeemVoucher.itemMetadata[itemID] = metadata
         }
 
         // updateMetadata
@@ -288,44 +288,44 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
         //
         pub fun updateMetadata(itemID: UInt64, metadata: Metadata) {
             pre {
-                BlindBoxRedeemCode.itemMetadata[itemID] != nil: "itemID does not exist"
+                BlindBoxRedeemVoucher.itemMetadata[itemID] != nil: "itemID does not exist"
             }
 
-            metadata.itemCount = BlindBoxRedeemCode.itemMetadata[itemID]!.itemCount
+            metadata.itemCount = BlindBoxRedeemVoucher.itemMetadata[itemID]!.itemCount
 
             // update metadata
-            BlindBoxRedeemCode.itemMetadata[itemID] = metadata
+            BlindBoxRedeemVoucher.itemMetadata[itemID] = metadata
         }
     }
 
     // fetch
-    // Get a reference to a BlindBoxRedeemCode from an account's Collection, if available.
-    // If an account does not have a BlindBoxRedeemCode.Collection, panic.
+    // Get a reference to a BlindBoxRedeemVoucher from an account's Collection, if available.
+    // If an account does not have a BlindBoxRedeemVoucher.Collection, panic.
     // If it has a collection but does not contain the itemID, return nil.
     // If it has a collection and that collection contains the itemID, return a reference to that.
     //
-    pub fun fetch(_ from: Address, itemID: UInt64): &BlindBoxRedeemCode.NFT? {
+    pub fun fetch(_ from: Address, itemID: UInt64): &BlindBoxRedeemVoucher.NFT? {
         let collection = getAccount(from)
-            .getCapability(BlindBoxRedeemCode.CollectionPublicPath)!
-            .borrow<&BlindBoxRedeemCode.Collection>()
+            .getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)!
+            .borrow<&BlindBoxRedeemVoucher.Collection>()
             ?? panic("Couldn't get collection")
-        // We trust BlindBoxRedeemCode.Collection.borowBlindBoxRedeemCode to get the correct itemID
+        // We trust BlindBoxRedeemVoucher.Collection.borowBlindBoxRedeemVoucher to get the correct itemID
         // (it checks it before returning it).
-        return collection.borrowBlindBoxRedeemCode(id: itemID)
+        return collection.borrowBlindBoxRedeemVoucher(id: itemID)
     }
 
     // getMetadata
-    // Get the metadata for a specific type of BlindBoxRedeemCode
+    // Get the metadata for a specific type of BlindBoxRedeemVoucher
     //
     pub fun getMetadata(itemID: UInt64): Metadata? {
-        return BlindBoxRedeemCode.itemMetadata[itemID]
+        return BlindBoxRedeemVoucher.itemMetadata[itemID]
     }
 
     // checkCodeHashUsed
     // Check if a codeHash has been registered
     //
     pub fun checkCodeHashUsed(codeHash: String): Bool {
-        var redeemedCodes = BlindBoxRedeemCode.account.copy<{String: Bool}>(from: /storage/redeemedCodes)!
+        var redeemedCodes = BlindBoxRedeemVoucher.account.copy<{String: Bool}>(from: /storage/redeemedCodes)!
         return redeemedCodes[codeHash] ?? false
     }
 
@@ -333,9 +333,9 @@ pub contract BlindBoxRedeemCode: NonFungibleToken {
     //
     init() {
         // Set our named paths
-        self.CollectionStoragePath = /storage/BlindBoxRedeemCodeCollection
-        self.CollectionPublicPath = /public/BlindBoxRedeemCodeCollection
-        self.AdminStoragePath = /storage/BlindBoxRedeemCodeAdmin
+        self.CollectionStoragePath = /storage/BlindBoxRedeemVoucherCollection
+        self.CollectionPublicPath = /public/BlindBoxRedeemVoucherCollection
+        self.AdminStoragePath = /storage/BlindBoxRedeemVoucherAdmin
 
         // Initialize the total supply
         self.totalSupply = 0
