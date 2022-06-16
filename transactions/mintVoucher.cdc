@@ -12,6 +12,6 @@ transaction(address: Address, itemID: UInt64) {
             .borrow<&{NonFungibleToken.CollectionPublic}>()
             ?? panic("Could not borrow BlindBoxRedeemVoucher collection public reference")
 
-        minter.mintNFT(recipient: nftCollectionRef, itemID: itemID)
+        minter.mintNFT(recipient: nftCollectionRef, itemID: itemID, codeHash: nil)
     }
 }

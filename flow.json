@@ -30,7 +30,8 @@
     "BlindBoxRedeemVoucher": {
       "source": "./contracts/BlindBoxRedeemVoucher.cdc",
       "aliases": {
-        "mainnet": "0x758252ab932a3416"
+        "mainnet": "0x758252ab932a3416",
+        "testnet": "0xb073f87f88ee7449"
       }
     }
   },
