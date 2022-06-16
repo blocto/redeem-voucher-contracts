@@ -1,5 +1,5 @@
-import YahooPartnersCollectible from "../contracts/YahooPartnersCollectible.cdc"
+import BlindBoxRedeemVoucher from "../contracts/BlindBoxRedeemVoucher.cdc"
 
-pub fun main(itemID: UInt64): YahooPartnersCollectible.Metadata? {
-    return YahooPartnersCollectible.getMetadata(itemID: itemID)
+pub fun main(itemID: UInt64): BlindBoxRedeemVoucher.Metadata? {
+    return BlindBoxRedeemVoucher.getMetadata(itemID: itemID)
 }

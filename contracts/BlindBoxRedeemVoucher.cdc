@@ -62,7 +62,7 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
     }
 
     // NFT
-    // A Yahoo Collectible NFT
+    // A Redeem Voucher NFT
     //
     pub resource NFT: NonFungibleToken.INFT, MetadataViews.Resolver {
         // The token's ID

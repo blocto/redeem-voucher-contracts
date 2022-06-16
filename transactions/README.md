@@ -3,7 +3,7 @@
 ```
 flow transactions send ./transactions/setupCollection.cdc \
   --network testnet \
-  --signer yahoo-user-testnet \
+  --signer voucher-user-testnet \
   --gas-limit 1000
 ```
 
@@ -20,7 +20,7 @@ flow transactions send ./transactions/transferBlindBoxRedeemVoucher.cdc 0 0x759a
 flow transactions send ./transactions/registerMetadata.cdc \
   --network testnet \
   --args-json "$(cat "./arguments/metadata.json")" \
-  --signer yahoo-admin-testnet \
+  --signer voucher-admin-testnet \
   --gas-limit 1000
 ```
 
@@ -28,7 +28,7 @@ flow transactions send ./transactions/registerMetadata.cdc \
 ```
 flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0x66ca989c2cd296fb 0 \
   --network testnet \
-  --signer yahoo-admin-testnet \
+  --signer voucher-admin-testnet \
   --gas-limit 1000
 ```
 
@@ -36,7 +36,7 @@ flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0x66ca989c2c
 ```
 flow transactions send ./transactions/mintBlindBoxRedeemVoucherBatch.cdc 0x66ca989c2cd296fb 0 5 \
   --network testnet \
-  --signer yahoo-admin-testnet \
+  --signer voucher-admin-testnet \
   --gas-limit 9999
 ```
 
@@ -53,12 +53,12 @@ flow transactions build ./transactions/createReference.cdc \
   --save ./build/unsigned.rlp
 
 flow transactions sign ./build/unsigned.rlp \
-  --signer yahoo-admin-mainnet \
+  --signer voucher-admin-mainnet \
   --filter payload \
   --save ./build/signed-1.rlp
 
 flow transactions sign ./build/signed-1.rlp \
-  --signer yahoo-admin-backend-mainnet \
+  --signer voucher-admin-backend-mainnet \
   --filter payload \
   --save ./build/signed-2.rlp
 

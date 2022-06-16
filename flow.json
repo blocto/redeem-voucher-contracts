@@ -54,19 +54,19 @@
       "keys": "eb4347b08ebd2f74d38bec1026b07430fe04510c95afe8534735677a3410dd87",
       "chain": "flow-emulator"
     },
-    "yahoo-admin-testnet": {
+    "voucher-admin-testnet": {
       "fromFile": "./flow.testnet.json"
     },
-    "yahoo-admin-backend-testnet": {
+    "voucher-admin-backend-testnet": {
       "fromFile": "./flow.testnet.json"
     },
-    "yahoo-user-testnet": {
+    "voucher-user-testnet": {
       "fromFile": "./flow.testnet.json"
     },
-    "yahoo-admin-mainnet": {
+    "voucher-admin-mainnet": {
       "fromFile": "./flow.mainnet.json"
     },
-    "yahoo-admin-backend-mainnet": {
+    "voucher-admin-backend-mainnet": {
       "fromFile": "./flow.mainnet.json"
     },
     "user-mainnet": {
@@ -75,13 +75,12 @@
   },
   "deployments": {
     "testnet": {
-      "yahoo-admin-testnet": [
-        "BlindBoxRedeemVoucher",
-        "YahooPartnersCollectible"
+      "voucher-admin-testnet": [
+        "BlindBoxRedeemVoucher"
       ]
     },
     "mainnet": {
-      "yahoo-admin-mainnet": [
+      "voucher-admin-mainnet": [
         "BlindBoxRedeemVoucher"
       ]
     }
