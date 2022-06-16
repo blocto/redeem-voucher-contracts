@@ -32,12 +32,6 @@
       "aliases": {
         "mainnet": "0x758252ab932a3416"
       }
-    },
-    "YahooPartnersCollectible": {
-      "source": "./contracts/YahooPartnersCollectible.cdc",
-      "aliases": {
-        "mainnet": "0x758252ab932a3416"
-      }
     }
   },
   "networks": {
