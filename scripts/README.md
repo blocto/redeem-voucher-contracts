@@ -1,13 +1,13 @@
 # Token
 ### Check if an account has collection enabled
 ```
-flow scripts execute ./scripts/checkCollection.cdc 0x66ca989c2cd296fb \
+flow scripts execute ./scripts/checkCollection.cdc 0xeec852ceb51a5fb3 \
   --network testnet
 ```
 
 ### Get Metadata for a BlindBoxRedeemVoucher
 ```
-flow scripts execute ./scripts/getMetadata.cdc 0x66ca989c2cd296fb 0 \
+flow scripts execute ./scripts/getMetadata.cdc 0xeec852ceb51a5fb3 0 \
   --network testnet
 ```
 

@@ -26,7 +26,7 @@ flow transactions send ./transactions/registerMetadata.cdc \
 
 ### Mint NFT
 ```
-flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0x66ca989c2cd296fb 0 \
+flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0xeec852ceb51a5fb3 0 \
   --network testnet \
   --signer voucher-admin-testnet \
   --gas-limit 1000
@@ -34,7 +34,7 @@ flow transactions send ./transactions/mintBlindBoxRedeemVoucher.cdc 0x66ca989c2c
 
 ### Mint NFT in Batch
 ```
-flow transactions send ./transactions/mintBlindBoxRedeemVoucherBatch.cdc 0x66ca989c2cd296fb 0 5 \
+flow transactions send ./transactions/mintBlindBoxRedeemVoucherBatch.cdc 0xeec852ceb51a5fb3 0 5 \
   --network testnet \
   --signer voucher-admin-testnet \
   --gas-limit 9999
