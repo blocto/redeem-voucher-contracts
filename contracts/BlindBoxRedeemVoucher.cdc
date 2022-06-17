@@ -97,7 +97,8 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
         pub fun getViews(): [Type] {
             return [
                 Type<MetadataViews.Display>(),
-                Type<MetadataViews.IPFSFile>()
+                Type<MetadataViews.IPFSFile>(),
+                Type<MetadataViews.Edition>()
             ]
         }
 
@@ -119,6 +120,13 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
                     return MetadataViews.IPFSFile(
                         cid: self.getMetadata()!.mediaHash,
                         path: nil
+                    )
+
+                case Type<MetadataViews.Edition>():
+                    return MetadataViews.Edition(
+                        name: nil,
+                        number: self.editionNumber,
+                        max: self.getMetadata()!.itemCount
                     )
             }
 
