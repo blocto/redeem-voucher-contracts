@@ -1,7 +1,7 @@
 import NonFungibleToken from "../contracts/NonFungibleToken.cdc"
 import BlindBoxRedeemVoucher from "../contracts/BlindBoxRedeemVoucher.cdc"
 
-pub fun main(address: Address, index: Int): BlindBoxRedeemVoucher.Metadata? {
+pub fun main(address: Address, index: Int): BlindBoxRedeemVoucher.Metadata {
     let collectionRef = getAccount(address).getCapability(BlindBoxRedeemVoucher.CollectionPublicPath)
         .borrow<&{NonFungibleToken.CollectionPublic, BlindBoxRedeemVoucher.CollectionPublic}>()
         ?? panic("Could not borrow collection public reference")
@@ -9,5 +9,5 @@ pub fun main(address: Address, index: Int): BlindBoxRedeemVoucher.Metadata? {
     let ids = collectionRef.getIDs()
     let voucher = collectionRef.borrowBlindBoxRedeemVoucher(id: ids[index])!
 
-    return voucher.getMetadata()
+    return voucher.getMetadata()!
 }
