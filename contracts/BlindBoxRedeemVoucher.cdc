@@ -123,10 +123,12 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
                     )
 
                 case Type<MetadataViews.Edition>():
+                    let metadata = self.getMetadata() ?? panic("missing metadata")
+
                     return MetadataViews.Edition(
-                        name: nil,
+                        name: metadata.mediaHash,
                         number: self.editionNumber,
-                        max: self.getMetadata()!.itemCount
+                        max: metadata.itemCount
                     )
             }
 
