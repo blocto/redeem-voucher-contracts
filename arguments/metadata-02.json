@@ -1,0 +1,26 @@
+[
+    {
+        "type": "UInt64",
+        "value": "2"
+    },
+    {
+        "type": "String",
+        "value": "Zeed"
+    },
+    {
+        "type": "String",
+        "value": "Special NFT.NYC edition. So tiny and magical. Grants entry to the game of Zeedz. Receives a unique growing boost when planted in New York City.\n\nzeedz.io"
+    },
+    {
+        "type": "String",
+        "value": "image/png"
+    },
+    {
+        "type": "String",
+        "value": "QmcG2xiDAVJXd8hf3zgDPV1k2vRWG13FQe5CPuPUx6srk1"
+    },
+    {
+        "type": "String",
+        "value": "common"
+    }
+]

@@ -1,23 +1,23 @@
 [
     {
         "type": "UInt64",
-        "value": "85089687"
+        "value": "14"
     },
     {
         "type": "String",
-        "value": "TITLE"
+        "value": "Cockatoo Arlee"
     },
     {
         "type": "String",
-        "value": "DESCRIPTION"
+        "value": "A cute Cockatoo Arlee walking\n\narlequin.gg"
     },
     {
         "type": "String",
-        "value": "TYPE"
+        "value": "image/png"
     },
     {
         "type": "String",
-        "value": "HASH"
+        "value": "QmSeSNsej6eggeb5VY8batMTJnxQ9aMdXSj4VDbekXdzWq"
     },
     {
         "type": "String",
