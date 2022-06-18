@@ -151,7 +151,7 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
     // Collection
     // A collection of BlindBoxRedeemVoucher NFTs owned by an account
     //
-    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CollectionPublic {
+    pub resource Collection: NonFungibleToken.Provider, NonFungibleToken.Receiver, NonFungibleToken.CollectionPublic, CollectionPublic, MetadataViews.ResolverCollection {
         // dictionary of NFT conforming tokens
         // NFT is a resource type with an `UInt64` ID field
         //
@@ -212,6 +212,15 @@ pub contract BlindBoxRedeemVoucher: NonFungibleToken {
             } else {
                 return nil
             }
+        }
+
+        // borrowViewResolver
+        // Gets a MetadataViews.Resolver interface to an NFT in the collection.
+        //
+        pub fun borrowViewResolver(id: UInt64): &AnyResource{MetadataViews.Resolver} {
+            let nft = (&self.ownedNFTs[id] as auth &NonFungibleToken.NFT?)!
+            let voucherNFT = nft as! &BlindBoxRedeemVoucher.NFT
+            return voucherNFT as &AnyResource{MetadataViews.Resolver}
         }
 
         // destructor
