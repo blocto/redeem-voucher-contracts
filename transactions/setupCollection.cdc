@@ -10,7 +10,7 @@ transaction {
 
             signer.save(<-collection, to: BlindBoxRedeemVoucher.CollectionStoragePath)
 
-            signer.link<&BlindBoxRedeemVoucher.Collection{NonFungibleToken.CollectionPublic, BlindBoxRedeemVoucher.CollectionPublic}>(
+            signer.link<&BlindBoxRedeemVoucher.Collection{NonFungibleToken.CollectionPublic, BlindBoxRedeemVoucher.CollectionPublic, MetadataViews.ResolverCollection}>(
                 BlindBoxRedeemVoucher.CollectionPublicPath,
                 target: BlindBoxRedeemVoucher.CollectionStoragePath)
         }
